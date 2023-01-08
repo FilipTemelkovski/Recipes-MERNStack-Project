@@ -1,0 +1,36 @@
+{
+  "name": "aplikacija-semos",
+  "version": "1.0.0",
+  "description": "aplikacija za semos",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-recipes-service": "node ./services/recipes/index.js",
+    "start-auth-service": "node ./services/auth/index.js",
+    "start-proxy-service": "node ./services/proxy/index.js",
+    "start-scripts-in-parallel": "node ./services/recipes/index.js & node ./services/auth/index.js",
+    "start-scripts-sequentially": "node ./services/recipes/index.js && node ./services/recipes/index.js",
+    "start-windows": "start npm run start-recipes-service && start npm run start-auth-service",
+    "start-server-dev": "concurrently -n proxy,auth-service,recipes-service \"npm run start-proxy-service\" \"npm run start-auth-service\" \"npm run start-recipes-service\"",
+    "start-server-nodemon-old": "nodemon index.js",
+    "start-ui-dev": "cd web && npm run start",
+    "build-ui-project": "cd web && npm run build",
+    "start-full-project-dev": "start npm run start-server-concurrently && start npm run start-ui-dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^7.6.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-http-proxy": "^1.6.3",
+    "express-jwt": "^7.7.7",
+    "mongoose": "^6.7.2",
+    "morgan": "^1.10.0",
+    "node-input-validator": "^4.5.1",
+    "nodemon": "^2.0.20"
+  }
+}

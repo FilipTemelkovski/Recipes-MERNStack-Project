@@ -1,0 +1,28 @@
+{
+    "dbConfig":{
+        "username": "FilipT",
+        "password": "filip.fic5",
+        "clusterName": "cluster0.hx5mrxp.mongodb.net",
+        "databaseName": "semos-db"
+    },
+    "hostname": "localhost",
+    "port": 5000,
+    "security": {
+        "jwt_secret_key": "filipSemos@fun!",
+        "expiryTime": "20m"
+    },
+    "services": {
+        "proxy": {
+            "port": 5010
+        },
+		"authentication": {
+			"port": 5011
+		},
+        "recipes": {
+			"port": 5012
+		},
+        "users": {
+			"port": 5013
+		}
+	}
+}
