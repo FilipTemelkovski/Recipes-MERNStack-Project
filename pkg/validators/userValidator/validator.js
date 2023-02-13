@@ -14,6 +14,8 @@ const validateLoginRule = {
     };
 
 
+
+
 const validate = async (requestBody, ruleToValidateBy) => {
     const v = new Validator(requestBody, ruleToValidateBy);
 

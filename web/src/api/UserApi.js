@@ -12,19 +12,18 @@ export const CreateAccount = async (userToBeCreated) => {
       })
       .catch((error) =>{
         TOAST_ALERT(`${error}`, "error");
-      });
-      
+      });     
 };
 
-export const LoginUser = async (userToBeLoggedIn) => {
-  try {
-     await axios.post(`${URL}${USERS}/login`, userToBeLoggedIn)
-    .then(response => {
-      console.log(response)
-      TOAST_ALERT("User successfully created", "success");
-    })
-    .then(response => console.log(response))
-  } catch (error) {
-    TOAST_ALERT(`${error}`, "error");
-  }
-};
+// export const LoginUser = async (userToBeLoggedIn) => {
+//   try {
+//      await axios.post(`${URL}${USERS}/login`, userToBeLoggedIn)
+//     .then(response => {
+//       console.log(response)
+//       TOAST_ALERT("User successfully created", "success");
+//       return response.data
+//     });
+//   } catch (error) {
+//     TOAST_ALERT(`${error}`, "error");
+//   }
+// };

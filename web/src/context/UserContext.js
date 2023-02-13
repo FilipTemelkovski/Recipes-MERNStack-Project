@@ -1,6 +1,8 @@
 import React, { useState, createContext, useEffect } from "react";
 import { CreateAccount, LoginUser } from "../api/UserApi";
 import { TOAST_ALERT } from "../static/toastify/Toastify";
+import axios from 'axios';
+import { URL, USERS } from "../config/Config";
 
 export const UserContext = createContext({
     setCurrentUser: () => null,
@@ -11,6 +13,8 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
     const [createdUser, setCreatedUser] = useState(null);
     const [logedUser, setLogedUser] = useState(null);
+    const [updatedUser, setUpdatedUser] = useState(null);
+    const [currentLoggedInUser, setCurrentLoggedInUser] = useState(null);
     const [token, setToken] = useState('');
 
     const CreateUser = async (userToBeCreated) => {
@@ -21,34 +25,62 @@ export const UserProvider = ({ children }) => {
         const { name, value } = event.target;
         setCreatedUser({ ...createdUser, [name]: value });
     };
-    console.log(createdUser)
 
-    const handleCreateUserSubmit = (event) => {
+    const handleCreateUserSubmit = async (event) => {
         event.preventDefault();
         if (createdUser.password !== createdUser.repeatPassword)
             TOAST_ALERT("Password and repeat password are not the same!", "error");
-        else CreateUser(createdUser);
+        else await CreateUser(createdUser);
     };
 
     const getLoginFormValues = (event) => {
         const { name, value } = event.target;
         setLogedUser({ ...logedUser, [name]: value });
     };
-    console.log(logedUser)
+
+    const currentlyLoggedInUser = () => {
+        const user = localStorage.getItem("loggedInUser")
+        return JSON.parse(user);
+    }
+
+    const getEditedUserFormValues = (event) => {
+        const { name, value } = event.target;
+        const user =  JSON.parse(localStorage.getItem("loggedInUser"));
+        setUpdatedUser({ ...updatedUser, [name]: value, id: user._id});
+    }
+
+    const handleUpdateUserSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            console.log(updatedUser)
+            await axios.post(`${URL}${USERS}/updateUser`, updatedUser)
+                .then(response => {
+                    console.log(response)
+                    // TOAST_ALERT("ASSSSSSSSSSS", "success");
+                    // setCurrentLoggedInUser(response.data) 
+                });
+        } catch (error) {
+            console.log(error)
+            TOAST_ALERT(`${error}`, "error");
+        }
+    }
 
     const handleLoginUserSubmit = async (event) => {
         event.preventDefault();
-        let res = await LoginUser(logedUser)
-        console.log(res)
-        // .then((response) =>{
-        //     console.log(response)
-        //     setToken(response);
-        //     console.log(token);
-        // })
-        // .catch((error)=>{
-        //     console.log(error);
-        // })
+        try {
+            await axios.post(`${URL}${USERS}/login`, logedUser)
+                .then(async response => {
+                    TOAST_ALERT("User successfully logged in", "success");
+                    console.log(response.data)
+                    localStorage.setItem("loggedInUser", JSON.stringify(response.data.user))
+                    setCurrentLoggedInUser(localStorage.getItem("loggedInUser"));
+                    
+                });
+        } catch (error) {
+            TOAST_ALERT(`${error}`, "error");
+        }
     };
+
 
     const value = {
         createdUser,
@@ -57,7 +89,11 @@ export const UserProvider = ({ children }) => {
         getCreateUserFormValues,
         handleCreateUserSubmit,
         getLoginFormValues,
-        handleLoginUserSubmit
+        handleLoginUserSubmit,
+        currentlyLoggedInUser,
+        getEditedUserFormValues,
+        handleUpdateUserSubmit,
+        updatedUser,
     };
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 };

@@ -12,6 +12,8 @@ export const Navigation = () => {
             <li><Link to='/Dinner'>Dinner</Link></li>
             <li><Link to='/CreateAccount'>CREATE ACCOUNT</Link></li>
             <li><Link to='/Login'>LOGIN</Link></li>
+            <li><Link to='/MyRecipes'>MY RECIPES</Link></li>
+            <li><Link to='/MyProfile'>MY PROFILE</Link></li>
         </ul>
     </div>
   )

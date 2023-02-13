@@ -28,6 +28,7 @@ const calculateExpiryTime = () => {
 const TIME_TO_LIVE = expiryTime != null ? calculateExpiryTime() : ONE_DAY;
 
 
+
 const login = async ({ body }, response) => {
     try {
         await validate(body, validateLoginRule);
@@ -57,11 +58,34 @@ const login = async ({ body }, response) => {
 
         const encodedToken = jwt.sign(payloadData, JWT_SECRET);
 
-        return response.status(200).send({ token: encodedToken });
+        return response.status(200).send({ token: encodedToken, user: account });
     } catch (err) {
         return response.status(err.status).send(err.message);
     }
 };
+
+const updateUser = async({ body }, response) => {
+    try {
+        let account = await usersRepo.deleteAccount(body.id)
+        if (!account) {
+            throw {
+                status: 404,
+                message: 'User not found'
+            };
+        }
+        // let updatedUser = await usersRepo.updateAccount(body.id, body);
+  
+        // if (!updatedUser) {
+        //     throw {
+        //         status: 404,
+        //         message: 'User not found'
+        //     };
+        // }
+        return response.status(200).send({ user: updatedUser });
+    } catch (err) {
+        return response.status(err.status).send(err.message);
+    }
+}
 
 const logout = async (request, response) => {
     // try {
@@ -112,5 +136,6 @@ module.exports = {
     register,
     refreshToken,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    updateUser
 }
