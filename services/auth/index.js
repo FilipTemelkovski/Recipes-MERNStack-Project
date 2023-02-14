@@ -30,7 +30,7 @@ app.use(checkJWTFunction({ secret: JWT_SECRET, algorithms: ["HS256"] })
       '/api/v1/auth/reset-password',
       '/api/v1/auth/forgot-password',
       '/api/v1/auth/refresh-token',
-      '/api/v1/auth/updateUser'
+      '/api/v1/auth/updateUser',
     ]
   }));
 
@@ -38,8 +38,9 @@ app.use(checkJWTFunction({ secret: JWT_SECRET, algorithms: ["HS256"] })
 
 app.post("/api/v1/auth/create-user", auth.register);
 app.post("/api/v1/auth/login", auth.login);
-app.post('/api/v1/auth/logout', auth.logout);
-app.post('/api/v1/auth/updateUser,', auth.updateUser);
+app.post("/api/v1/auth/logout", auth.logout);
+app.put("/api/v1/auth/updateUser", auth.updateUser);
+
 
 app.listen(port, (err) => {
   if (err) {

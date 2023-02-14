@@ -1,9 +1,9 @@
 {
     "dbConfig":{
-        "username": "BobiS",
-        "password": "whoneedpass",
-        "clusterName": "cluster0.f4uhoos.mongodb.net",
-        "databaseName": "app-semos"
+        "username": "FilipT",
+        "password": "filip.fic5",
+        "clusterName": "cluster0.hx5mrxp.mongodb.net",
+        "databaseName": "semos-db"
     },
     "hostname": "localhost",
     "port": 5000,

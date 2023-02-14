@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { Link } from 'react-router-dom';
 import { Back } from './BackIconComponent';
+import { RecipeContext } from '../../context/RecipesContext';
 
 export const CreateRecipeComponent = () => {
+
+  const { getCreatedRecipeFormValues, handleCreatedRecipeSubmit } = useContext(RecipeContext);
+
   return (
     <div>
      
      <div>
         <div>Title</div>
-        <div><button><Back/></button></div>
+        <div>
+          <Link to="/MyRecipes"><button><Back/></button></Link>
+        </div>
       </div>
 
       <form>
@@ -17,7 +24,7 @@ export const CreateRecipeComponent = () => {
             type="text"
             placeholder="Homemade Pizza"
             name='title'
-            
+            onChange={getCreatedRecipeFormValues}
           />
         </div>
         <div>
@@ -35,7 +42,7 @@ export const CreateRecipeComponent = () => {
             type="number"
             placeholder='45'
             name='time'
-            
+            onChange={getCreatedRecipeFormValues}
           />
         </div>
         <div>
@@ -44,7 +51,7 @@ export const CreateRecipeComponent = () => {
             type="number"
             placeholder='4'
             name='people'
-            
+            onChange={getCreatedRecipeFormValues}
           />
         </div>
         <div>
@@ -53,7 +60,7 @@ export const CreateRecipeComponent = () => {
             type="text"
             placeholder='Lorem'
             name='shortDescription'
-            
+            onChange={getCreatedRecipeFormValues}
           />
         </div>
         <div>
@@ -62,11 +69,11 @@ export const CreateRecipeComponent = () => {
             type="text"
             placeholder='Lorem'
             name='recipe'
-           
+            onChange={getCreatedRecipeFormValues}
           />
         </div>
         <div>
-          <button>SAVE</button>
+          <button onClick={handleCreatedRecipeSubmit}>SAVE</button>
         </div>
       </form>
     </div>

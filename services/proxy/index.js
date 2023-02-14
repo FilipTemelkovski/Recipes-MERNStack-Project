@@ -2,6 +2,7 @@ const path = require('path');
 const config = require("../../pkg/config");
 const morgan = require("morgan");
 const express = require("express");
+const cors = require('cors');
 const expressProxy = require("express-http-proxy");
 const app = express();
 
@@ -12,6 +13,8 @@ const {
 } = config.getConfigPropertyValue("services");
 
 app.use(morgan("tiny"));
+
+app.use(cors());
 
 // reroute the request to the auth service
 app.use(

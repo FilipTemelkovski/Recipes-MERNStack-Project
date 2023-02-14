@@ -2,6 +2,8 @@ const recipes = require('./handlers/index');
 const connectDB = require("../../pkg/database/index");
 const express = require('express');
 const config = require('../../pkg/config');
+const cors = require('cors');
+const morgan = require('morgan');
 
 const { recipes: { port } } = config.getConfigPropertyValue("services");
 
@@ -13,7 +15,9 @@ const app = express();
 
 app.use(express.json());
 
+app.use(morgan("tiny"));
 
+app.use(cors());
 
 
 app.get("/api/v1/recipes", recipes.getAllRecipes);

@@ -21,7 +21,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "argv": "^0.0.3",
     "bcryptjs": "^2.4.3",
+    "chalk": "^5.2.0",
     "concurrency": "^0.1.4",
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",

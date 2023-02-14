@@ -66,22 +66,15 @@ const login = async ({ body }, response) => {
 
 const updateUser = async({ body }, response) => {
     try {
-        let account = await usersRepo.deleteAccount(body.id)
-        if (!account) {
+        let updatedUser = await usersRepo.updateAccount(body.id, body);
+        console.log(updatedUser);
+        if (!updatedUser) {
             throw {
                 status: 404,
                 message: 'User not found'
             };
         }
-        // let updatedUser = await usersRepo.updateAccount(body.id, body);
-  
-        // if (!updatedUser) {
-        //     throw {
-        //         status: 404,
-        //         message: 'User not found'
-        //     };
-        // }
-        return response.status(200).send({ user: updatedUser });
+        return response.status(200).send({ user: updatedUser});
     } catch (err) {
         return response.status(err.status).send(err.message);
     }

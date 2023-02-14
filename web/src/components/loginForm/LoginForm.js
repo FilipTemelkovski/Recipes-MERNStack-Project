@@ -3,7 +3,7 @@ import { UserContext } from '../../context/UserContext';
 
 export const LoginForm = () => {
 
-  const {getLoginFormValues, handleLoginUserSubmit,findLoggedUserByEmail} = useContext(UserContext);
+  const {getLoginFormValues, handleLoginUserSubmit} = useContext(UserContext);
 
   return (
     <form>
@@ -27,7 +27,6 @@ export const LoginForm = () => {
         </div>
         <div>
           <button onClick={handleLoginUserSubmit} >LOGIN</button>
-          <button type='button' onClick={findLoggedUserByEmail} >aaa</button>
         </div>
     </form>
   )

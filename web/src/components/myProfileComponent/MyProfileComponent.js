@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import './MyProfileComponent.style.css';
 
 export const MyProfile = () => {
 
-    const { getEditedUserFormValues, handleUpdateUserSubmit, currentlyLoggedInUser, setCurrentLoggedInUser } = useContext(UserContext);
+    const { getEditedUserFormValues, handleUpdateUserSubmit, currentlyLoggedInUser } = useContext(UserContext);
   
     const user = currentlyLoggedInUser();  
 
